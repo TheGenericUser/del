@@ -1,0 +1,260 @@
+#1: quadratic eq:
+a = eval(input("First coefficient(a):"))
+b = eval(input("First coefficient(b):"))
+c = eval(input("First coefficient(c):"))
+
+d = (b**2) - 4*a*c
+
+if d == 0:
+    r1 = -b/(2*a)
+    print(f"There is one real root, {r1}")
+
+elif d > 0:
+    r1 = (-b + d**0.5)/(2*a)
+    r2 = (-b - d**0.5)/(2*a)
+    print(f"There are two real roots, {r1} and {r2} ")
+
+else:
+    print("There are no real roots")
+
+#2
+def func():
+    #a n is prime no?
+    n = int(input("Number:"))
+
+    is_prime = True
+
+    if n < 2:
+        is_prime = False
+    else:
+        for i in range(2, int(n/2)+1):
+            if n % i == 0:
+                is_prime = False
+                break
+
+    if is_prime:
+        print(f"{n} is a prime number.")
+    #b prime till n
+    for i in range(2,n):
+        is_prime = True
+        for j in range(2,int(i/2)+1): #2,6->2,5
+            if i % j == 0:
+                is_prime = False
+                break
+        if is_prime:
+            print(i)
+    #c first n prime nos.
+    n = int(input("Prime number till:"))
+
+    for i in range(2,n+1):
+        is_prime = True
+        for j in range(2,int(i/2)+1):
+            if i % j == 0:
+                is_prime = False
+                break
+        if is_prime:
+            print(i)
+
+func()
+
+#3 pyramid using *
+height = int(input("Enter the height of the pyramid: "))
+
+#a
+for i in range(1, height+1):
+    for j in range(height-i):
+        print(" ", end="")
+    for j in range(2*i-1):
+        print("*", end="")
+    print()
+
+#b inverted
+for i in reversed(range(1, height+1)):
+    for j in range(height-i):
+        print(" ", end="")
+    for j in range(2*i-1):
+        print("*", end="")
+    print()
+
+#4
+char = input("Enter a character: ")
+
+#a letter, numbers, or special character
+if char.isalpha():
+    print(f"{char} is a letter.")
+    #b is upper or lower
+    if char.isupper():
+        print(f"{char} is uppercase.")
+    elif char.islower():
+        print(f"{char} is lowercase.")
+    else:
+        print(f"{char} is both uppercase and lowercase.")
+elif char.isdigit():
+    print(f"{char} is a numeric digit.")
+    #c if user inputs 9, output is NINE
+    num_to_word = {'0': 'ZERO', '1': 'ONE','2': 'TWO','3': 'THREE','4': 'FOUR','5': 'FIVE','6': 'SIX','7': 'SEVEN','8': 'EIGHT','9': 'NINE'}
+    print(num_to_word.get(char))
+elif char.isalnum():
+    print(f"{char} is both a letter and numeric digit.")
+else:
+    print(f"{char} is a special character.")
+
+#5
+#a freq of char in a str
+string = "hello world"
+char = input("Character:")
+freq = string.count(char)
+print(f"The character '{char}' appears {freq} times in the string.")
+#b replace char by another char
+string = "hello world"
+old_char = input("Old character:")
+new_char = input("New character:")
+new_string = string.replace(old_char, new_char)
+print(f"The new string is: {new_string}")
+#c remove 1st occurrence
+string = "hello world"
+char = input("Character:")
+new_string = string.replace(char, '', 1)
+print(f"The new string is: {new_string}")
+#d remove all occurrence
+string = "hello world"
+char = input("Character:")
+new_string = string.replace(char, '')
+print(f"The new string is: {new_string}")
+
+#6 swap first n chars
+string1 = "hello world"
+string2 = "morning"
+n = int(input("Swap how many characters?"))
+new_string1 = string1.replace(string1[0:n],string2[0:n])
+new_string2 = string2.replace(string2[0:n],string1[0:n])
+print(f"New strings are: {new_string1} and {new_string2}")
+
+#7 func that accepts two strings, and checks if any str of 2nd str is in 1st string is in string1, else it returns -1
+def func(string1, string2):
+    l = []
+    for i in range(len(string1)):
+        x = string2.find(string1[i])
+        if x >= 0:
+            l.append(string1[i])
+    if len(l)>0:
+        return l
+    else:
+        return -1
+
+result = func("hello world", "jizz")
+print(result)
+
+#8 create list of cubes of only even int in the input(split the input)
+#a for loop
+numbers = input("Enter a list of numbers separated by ,:").split(",")
+cubes = []
+for i in numbers:
+    if i.isdigit() and int(i) % 2 == 0:
+        cubes.append(int(i)**3)
+print(cubes)
+#b using list comprehension
+numbers = input("Enter a list of numbers separated by ,: ").split(",")
+cubes = [int(num)**3 for num in numbers if num.isdigit() and int(num) % 2 == 0]
+print(cubes)
+
+#9
+#a print total number of char, words and lines in file.
+with open("text.txt", "r") as file:
+    contents = file.read()
+    num_chars = len(contents)
+    num_words = len(contents.split())
+    num_lines = len(contents.split('\n'))
+    print("Number of characters:", num_chars)
+    print("Number of words:", num_words)
+    print("Number of lines:", num_lines)
+#b calc the freq of each char. use a variable of dict type to maintain the count
+char_freq = {}
+for char in contents:
+    if char not in char_freq:
+        char_freq[char] = 1
+    else:
+        char_freq[char] += 1
+print("Character frequency:")
+for char, freq in char_freq.items():
+    print(char, ":", freq)
+#c print words in reverse
+words = contents.split()
+print("Words in reverse:")
+for word in reversed(words):
+    print(word)
+#d copy even lines of the file in File1 and odd in File2
+with open("text.txt", "r") as file:
+    contents = file.readlines()
+
+even_lines = []
+odd_lines = []
+
+for i, line in enumerate(contents):
+    if i % 2 == 0:
+        even_lines.append(line)
+    else:
+        odd_lines.append(line)
+
+with open("File1.txt", "w") as file:
+    file.writelines(even_lines)
+
+with open("File2.txt", "w") as file:
+    file.writelines(odd_lines)
+
+#10 to find the distance using OOPS
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+
+    def distance(self, other):
+        return ((self.x - other.x)**2 + (self.y - other.y)**2)**0.5
+p1 = Point(0, 0)
+p2 = Point(3, 4)
+print(p1)
+print(p2)
+dist = p1.distance(p2)
+print(dist)
+
+#11 prints a dict where keys are from 1-5 and returns the cube.
+def cube_dict():
+    d = {i: i**3 for i in range(1, 6)}
+    print(d)
+cube_dict()
+
+#12 
+t1 = (1, 2, 5, 7, 9, 2, 4, 6, 8, 10)
+#a Print half the values in one line and other in the next line
+half = len(t1) // 2
+print(*t1[:half])
+print(*t1[half:])
+
+#b Print another tuple whose values are even numbers in t1
+t2 = tuple(i for i in t1 if i % 2 == 0)
+print(t2)
+
+#c Concatenate t2=(11, 13, 15) with t1
+t2 = (11, 13, 15)
+t1 = t1 + t2
+print(t1)
+
+#d Return max and min value from tuple
+max_val = max(t1)
+min_val = min(t1)
+print("Max value:", max_val)
+print("Min value:", min_val)
+
+#13 raises exception if there are speicial chars or numers
+def get_name():
+    name = input("Enter your name: ")
+    try:
+        if not name.isalpha():
+            raise ValueError("Name should only contain alphabets.")
+        return name
+    except ValueError as e:
+        print(e)
+get_name()
