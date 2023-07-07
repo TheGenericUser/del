@@ -1,0 +1,729 @@
+//1 s= 1-1/n^n......
+#include <iostream>
+using std::cout;
+using std::cin;
+
+double exponent(double numberBase, double numberPower) {
+    if (numberPower == 0) {
+        return 1;
+    }
+    double result = numberBase;
+    for (int i = 2; i <= numberPower; i++) {
+        result *= numberBase;
+    }
+    return result;
+}
+
+int main() {
+    int n;
+    long double s = 0;
+    cout << "Value of n: ";
+    cin >> n;
+    if (n == 0) {
+    } 
+    else {
+        for (int i = 1; i <= n; i++) {
+            if (i % 2 != 0) {
+                s += 1 / exponent(i, i);
+            } else {
+                s -= 1 / exponent(i, i);
+            }
+        }
+    }
+
+    cout << "Value of S is: " << s;
+    return 0;
+}
+
+//2 remove duplicates
+#include <iostream>
+using std::cout;
+using std::cin;
+
+int main(){
+    int size = 10;
+    int array[10] = {1, 2, 3, 3, 3, 3, 3, 8, 9, 10};
+    int uniqueArray[10];
+    int uniqueSize = 0;
+    for (int i = 0; i < size; i++) {
+            bool isDuplicate = false;
+
+            for (int j = 0; j < uniqueSize; j++) {
+                if (array[i] == uniqueArray[j]) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+
+            if (!isDuplicate) {
+                uniqueArray[uniqueSize++] = array[i];
+            }
+        }
+    for (int i = 0; i < uniqueSize; i++) {
+        cout << uniqueArray[i];
+        if (i != uniqueSize - 1) {
+            cout << ",";
+        }
+    }
+}
+//3 no. of occurances using cmd arguments
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+int main(int argc, char* argv[]) {
+    string str;
+    for (int i = 0; i < argc - 1; i++) {
+        str += argv[i + 1];
+    }
+
+    string strn;
+    for (int i = 0; i < str.length(); i++) {
+        strn += tolower(str[i]);
+    }
+    cout << "Alphabet   Occurrence" << endl;
+    int size = strn.length();
+
+    for (int i = 0; i < size; i++) {
+        if (isalpha(strn[i])) {
+            int counter = 1;
+            for (int j = i + 1; j < size; j++) {
+                if (strn[i] == strn[j]) {
+                    counter++;
+                    strn.erase(j, 1);
+                    size--;
+                }
+            }
+            std::cout << "    " << strn[i] << "             " << counter << "\n";
+        }
+    }
+    return 0;
+}
+//4 string funcs
+#include <iostream> 
+using namespace std;
+
+void charaddress(string &str){
+    int i=0,size=0;
+    while(str[i]){
+        size++;
+        i++;
+    };
+    for (int i = 0; i <size; i++){
+    cout<<"Adress of charcter "<<i+1<<" i.e. "<<str[i]<<" is "<<(void*)&str[i]<<endl;
+    }
+}
+
+void concatanate(string &str1, string &str2){
+    string str;
+    str=str1+str2;
+    cout<<"concatination of "<<str1<<" and "<<str2<<" is "<<str;
+}
+
+
+void compare(string &str1, string &str2){
+    if (str1>str2){
+        cout<<str1<<" is greater than "<<str2;
+    }
+    else if (str1<str2){
+        cout<<str1<<" is lesser than "<<str2;
+
+    }
+    else{
+        cout<<str1<<" and "<<str2<<" are equal";
+    }
+}
+
+void strlength(string str){
+    int count=0,i=0;
+    while(str[i]){
+        count++;
+        i++;
+    }
+    cout<<"Length of "<<str<<" is "<<count;
+}
+
+void uppercase(string &str){
+    int count=0, i=0; 
+    while(str[i]){
+        if (str[i]>='a'&&str[i]<='z'){
+            str[i]-=32;
+        }
+        i++;
+    }
+    cout<<"Upper case string of given string is "<<str;
+}
+
+void reverseString(string& str) {
+    string test = str;
+    str = "";
+    int i = 0;
+    while (test[i]) {
+        str = test[i] + str;
+        i++;
+    }
+    cout << "Reverse of " << test << " is " << str << endl;
+}
+
+void insertString(int pos, string& str, const string& substr) {
+    string test = str;
+    str = "";
+    int i = 0;
+    while (test[i]) {
+        if (i == pos) {
+            str += substr + test[i];
+        } 
+        else {
+            str += test[i];
+        }
+        i++;
+    }
+    cout << "New string formed after insertion is " << str << endl;
+}
+
+int main() {
+    cout << "String manipulation menu:- \n" << endl;
+    cout << "Press 1: Show address of each character in string." << endl;
+    cout << "Press 2: Concatenate two strings." << endl;
+    cout << "Press 3: Compare two strings." << endl;
+    cout << "Press 4: Calculate length of the string." << endl;
+    cout << "Press 5: Convert all lowercase characters to uppercase." << endl;
+    cout << "Press 6: Reverse the string." << endl;
+    cout << "Press 7: Insert a string in another string at a user-specified position. \n" << endl;
+
+    int choice;
+    cout << "Press any number from 1 to 7: ";
+    cin >> choice;
+
+    switch (choice) {
+        case 1: {
+            string string1;
+            cout << "Enter a string: ";
+            cin >> string1;
+            charaddress(string1);
+            break;
+        }
+        case 2: {
+            string string1, string2;
+            cout << "Enter first string: ";
+            cin >> string1;
+            cout << "Enter second string: ";
+            cin >> string2;
+            concatanate(string1, string2);
+            break;
+        }
+        case 3: {
+            string string1, string2;
+            cout << "Enter first string: ";
+            cin >> string1;
+            cout << "Enter second string: ";
+            cin >> string2;
+            compare(string1, string2);
+            break;
+        }
+        case 4: {
+            string string1;
+            cout << "Enter a string: ";
+            cin >> string1;
+            strlength(string1);
+            break;
+        }
+        case 5: {
+            string string1;
+            cout << "Enter a string: ";
+            cin >> string1;
+            uppercase(string1);
+            break;
+        }
+        case 6: {
+            string string1;
+            cout << "Enter a string: ";
+            cin >> string1;
+            reverseString(string1);
+            break;
+        }
+        case 7: {
+            string string1, string2;
+            int position;
+            cout << "Enter a string: ";
+            cin >> string1;
+            cout << "Enter the string to insert: ";
+            cin >> string2;
+            cout << "Enter the position to insert at: ";
+            cin >> position;
+            insertString(position, string1, string2);
+            break;
+        }
+        default: {
+            cout << "Invalid input!" << endl;
+            break;
+        }
+    }
+
+    return 0;
+}
+//5 merge arrays
+#include <iostream>
+using namespace std;
+
+void mergeArray(int arr1[], int sizarr1, int arr2[], int sizarr2) {
+    int newarr[sizarr1 + sizarr2];
+    int i, j, k;
+    i = j = k = 0;
+    while (i < sizarr1 && j < sizarr2) {
+        if (arr1[i] < arr2[j]) {
+            newarr[k] = arr1[i];
+            i++;
+        }
+        else {
+            newarr[k] = arr2[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < sizarr1) {
+        newarr[k] = arr1[i];
+        k++;
+        i++;
+    }
+
+    while (j < sizarr2) {
+        newarr[k] = arr2[j];
+        k++;
+        j++;
+    }
+
+    cout << "Merged array formed is: ";
+    for (int i = 0; i < sizarr1 + sizarr2; i++) {
+        cout << newarr[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    int arr1[] = {1, 2, 55, 66, 77, 88, 99};
+    int arr2[] = {5, 7, 25, 70};
+    int sizarr1 = sizeof(arr1) / sizeof(int);
+    int sizarr2 = sizeof(arr2) / sizeof(int);
+
+
+    mergeArray(arr1, sizarr1, arr2, sizarr2);
+
+    return 0;
+}
+
+//6search elements
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num;
+    cout << "Enter the number of elements in the given set: ";
+    cin >> num;
+    int array[num];
+    cout << "Enter the elements present in the set:" << endl;
+    for (int i = 0; i < num; i++) {
+        cin >> array[i];
+    }
+    int numsearch;
+    cout << "Enter the number which you want to find: ";
+    cin >> numsearch;
+    bool find = false;
+    for (int i = 0; i < num; i++) {
+        if (array[i] == numsearch) {
+            cout << numsearch << " is present in the set at position " << i + 1 << endl;
+            find = true;
+        }
+    }
+    if (!find) {
+        cout << numsearch << " is not present in the given set of numbers." << endl;
+    }
+    return 0;
+}
+//7 gcd
+#include <iostream>
+using namespace std;
+
+int gcd(int num1, int num2) {
+    int min;
+    if (num1 < num2) {
+        min = num1;
+    }
+    else {
+        min = num2;
+    }
+
+    int gcd = 1;
+    for (int i = 1; i <= min; i++) {
+        if (num1 % i == 0 && num2 % i == 0) {
+            gcd = i;
+        }
+    }
+    return gcd;
+}
+
+int main() {
+    int num1, num2;
+    cout << "Enter the first number: ";
+    cin >> num1;
+    cout << "Enter the second number: ";
+    cin >> num2;
+    cout << "GCD of " << num1 << " and " << num2 << " is " << gcd(num1, num2) << endl;
+    return 0;
+}
+//8 matrix
+#include <iostream>
+using namespace std;
+
+class Matrix {
+    int rows, columns;
+    int *ptr;
+
+public:
+    Matrix(int rows, int columns) {
+        this->rows = rows;
+        this->columns = columns;
+        ptr = new int[this->rows * this->columns];
+        matrixCreation();
+    }
+
+    void matrixCreation() {
+        cout << "Enter the elements of matrix (M) one by one: " << endl;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                cout << "Enter the M[" << i << "][" << j << "] element: ";
+                cin >> ptr[i * columns + j];
+            }
+        }
+    }
+
+    void matDisplay(Matrix& m) {
+        for (int i = 0; i < m.rows; i++) {
+            for (int j = 0; j < m.columns; j++) {
+                cout << ptr[i * m.columns + j] << " ";
+            }
+            cout << endl;
+        }
+    }
+
+    void sum(Matrix &m2) {
+        if (this->rows != m2.rows || this->columns != m2.columns) {
+            throw 1;
+        }
+        else {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    this->ptr[i * m2.columns + j] += m2.ptr[i * m2.columns + j];
+                }
+            }
+            matDisplay(*this);
+        }
+    }
+
+    void product(Matrix &m2) {
+        if (this->columns != m2.rows) {
+            cout << "Error: Matrix dimensions are not compatible for multiplication." << endl;
+            throw 1.5;
+        }
+
+        int *result = new int[this->rows * m2.columns];
+        for (int i = 0; i < this->rows; i++) {
+            for (int j = 0; j < m2.columns; j++) {
+                int sum = 0;
+                for (int k = 0; k < this->columns; k++) {
+                    sum += this->ptr[i * this->columns + k] * m2.ptr[k * m2.columns + j];
+                }
+                result[i * m2.columns + j] = sum;
+            }
+        }
+
+        delete[] this->ptr; // Delete the old array
+        this->ptr = result; // Assign the new result array to the member variable
+        this->columns = m2.columns; // Update the dimensions of the matrix
+        matDisplay(*this);
+    }
+
+    void transpose() {
+        int array[columns][rows];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                array[j][i] = ptr[i * columns + j];
+            }
+        }
+
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
+                cout << array[i][j] << "\t";
+            }
+            cout << endl;
+        }
+    }
+};
+
+
+int main() {
+    cout << "Enter the choice of what you want to do:" << endl;
+    cout << "Press 1: Finding the sum of two matrices." << endl;
+    cout << "Press 2: Finding the product of two matrices." << endl;
+    cout << "Press 3: Finding the transpose of a matrix." << endl;
+
+    int choice;
+    cout << "Enter your choice: ";
+    cin >> choice;
+
+    switch (choice) {
+        case 1: {
+            int rows, columns;
+            cout << "Enter the number of rows of matrix1: ";
+            cin >> rows;
+            cout << "Enter the number of columns of matrix1: ";
+            cin >> columns;
+            Matrix M1(rows, columns);
+
+            cout << "Enter the number of rows of matrix2: ";
+            cin >> rows;
+            cout << "Enter the number of columns of matrix2: ";
+            cin >> columns;
+            Matrix M2(rows, columns);
+
+            try {
+                M1.sum(M2);
+            } 
+            catch (int) {
+                cout << "Size of matrices must be the same for the sum of two matrices!" << endl;
+            }
+            break;
+        }
+        case 2: {
+            int rows, columns;
+            cout << "Enter the number of rows of matrix1: ";
+            cin >> rows;
+            cout << "Enter the number of columns of matrix1: ";
+            cin >> columns;
+            Matrix M1(rows, columns);
+
+            cout << "Enter the number of rows of matrix2: ";
+            cin >> rows;
+            cout << "Enter the number of columns of matrix2: ";
+            cin >> columns;
+            Matrix M2(rows, columns);
+
+            try {
+                M1.product(M2);
+            } 
+            catch (double) {
+                cout << "Number of columns of matrix must be equal to the number of rows in matrix2 for multiplication of two matrices!" << endl;
+            }
+            break;
+        }
+        case 3: {
+            int rows, columns;
+            cout << "Enter the number of rows of matrix: ";
+            cin >> rows;
+            cout << "Enter the number of columns of matrix: ";
+            cin >> columns;
+            Matrix M(rows, columns);
+            
+            cout << "Matrix (M) after transpose:" << endl;
+            M.transpose();
+
+            break;
+        }
+        default: {
+            cout << "Please enter the correct choice!" << endl;
+            break;
+        }
+    }
+
+    return 0;
+}
+//9 student employee
+#include <iostream>
+using namespace std;
+
+class Person {
+public:
+    string name;
+
+    virtual void setData(void) {
+        cout << "Enter your name: ";
+        cin >> name;
+    }
+
+    virtual void display(void) {
+        cout << "Your name is: " << name << endl;
+    }
+};
+
+class Student : public Person {
+public:
+    string course;
+    int marks, year;
+
+    void setData(void) {
+        cout << "Enter your name: ";
+        cin >> name;
+        cout << "Enter your course: ";
+        cin >> course;
+        cout << "Enter your marks: ";
+        cin >> marks;
+        cout << "Enter your year: ";
+        cin >> year;
+    }
+
+    void display() {
+        cout << "Your name: " << name << endl
+             << "Course: " << course << endl
+             << "Marks: " << marks << endl
+             << "Year: " << year << endl;
+    }
+};
+
+class Employee : public Person {
+public:
+    string department;
+    int salary;
+
+    void setData(void) {
+        cout << "Enter your name: ";
+        cin >> name;
+        cout << "Enter your department: ";
+        cin >> department;
+        cout << "Enter your salary: ";
+        cin >> salary;
+    }
+
+    void display() {
+        cout << "Your name: " << name << endl
+             << "Department: " << department << endl
+             << "Salary: " << salary << endl;
+    }
+};
+
+int main() {
+    Person* baseptr;
+    Student S1;
+    baseptr = &S1;
+    baseptr->setData();
+    baseptr->display();
+
+    Employee E1;
+    baseptr = &E1;
+    baseptr->setData();
+    baseptr->display();
+
+    return 0;
+}
+//10 triangle
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Triangle {
+    int a, b, c, check;
+    float s, Area;
+
+public:
+    void set_sides() {
+        cout << "Enter side a: ";
+        cin >> a;
+        cout << "Enter side b: ";
+        cin >> b;
+        cout << "Enter side c: ";
+        cin >> c;
+    }
+
+    void tcheck() {
+        try {
+            if (a > 0 && b > 0 && c > 0 && (a + b > c) && (a + c > b) && (b + c > a)) {
+                cout << "The triangle is valid" << endl;
+                check = 1;
+            } 
+            else {
+                check = 0;
+                throw a;
+            }
+        } 
+        catch (int a) {
+            cout << "Triangle is not valid" << endl;
+            cout << "Enter the sides again" << endl;
+            return;
+        }
+
+        if (b * b == a * a + c * c) {
+            cout << "It's a right-angled triangle." << endl;
+            area(a, c);
+        }
+        else if (c * c == a * a + b * b) {
+            cout << "It's a right-angled triangle." << endl;
+            area(a, b);
+        } 
+        else {
+            if (check == 1) {
+                cout << "It is not a right-angled triangle." << endl;
+                area(a, b, c);
+            }
+        }
+    }
+
+    void area(int x, int y, int z) {
+        if (check == 1) {
+            s = (x + y + z) / 2.0;
+            Area = sqrt(s * (s - x) * (s - y) * (s - z));
+            cout << "Area of the triangle formed is " << Area << endl;
+        }
+    }
+
+    void area(int x, int y) {
+        if (check == 1) {
+            Area = (x * y) / 2.0;
+            cout << "Area of the triangle formed is " << Area << endl;
+        }
+    }
+};
+
+int main() {
+    Triangle T1;
+    T1.set_sides();
+    T1.tcheck();
+
+    return 0;
+}
+//11 file
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    string inputFileName = "input.txt";
+    string outputFileName = "output.txt";
+
+    ifstream inp(inputFileName);
+    ofstream out(outputFileName);
+
+    if (!inp) {
+        cerr << "Failed to open input file: " << inputFileName << endl;
+        return 1;
+    }
+
+    if (!out) {
+        cerr << "Failed to open output file: " << outputFileName << endl;
+        return 1;
+    }
+
+    char ch;
+    while (inp.get(ch)) {
+        if (!isspace(ch)) {
+            out.put(ch);
+        }
+    }
+
+    inp.close();
+    out.close();
+
+    cout << "Contents of " << inputFileName << " copied to " << outputFileName << " after removing whitespaces." << endl;
+
+    return 0;
+}
